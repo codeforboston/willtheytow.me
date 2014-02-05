@@ -2,127 +2,40 @@
 
 <html>
 <head>
-  <title>
-    Will They Tow Me?
-  </title>
-  <style type="text/css">
+<meta charset=utf-8 />
+<title>Will They Tow Me?</title>
 
-    /* http://meyerweb.com/eric/tools/css/reset/ 
-       v2.0 | 20110126
-       License: none (public domain)
-    */
-
-    html, body, div, span, applet, object, iframe,
-    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-    a, abbr, acronym, address, big, cite, code,
-    del, dfn, em, img, ins, kbd, q, s, samp,
-    small, strike, strong, sub, sup, tt, var,
-    b, u, i, center,
-    dl, dt, dd, ol, ul, li,
-    fieldset, form, label, legend,
-    table, caption, tbody, tfoot, thead, tr, th, td,
-    article, aside, canvas, details, embed, 
-    figure, figcaption, footer, header, hgroup, 
-    menu, nav, output, ruby, section, summary,
-    time, mark, audio, video {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      font-size: 100%;
-      font: inherit;
-      vertical-align: baseline;
-    }
-    /* HTML5 display-role reset for older browsers */
-    article, aside, details, figcaption, figure, 
-    footer, header, hgroup, menu, nav, section {
-      display: block;
-    }
-    body {
-      line-height: 1;
-    }
-    ol, ul {
-      list-style: none;
-    }
-    blockquote, q {
-      quotes: none;
-    }
-    blockquote:before, blockquote:after,
-    q:before, q:after {
-      content: '';
-      content: none;
-    }
-    table {
-      border-collapse: collapse;
-      border-spacing: 0;
-    }
-
-    body {
-      font-family: Helvetica, Arial;
-    }
-
-    h1 {
-      position: absolute;
-      top: 200px;
-      left: 20px;
-      font-weight: 400;
-      font-size: 68px;
-      letter-spacing: 2px;
-    }
-
-    .words {
-      position: absolute;
-      top: 280px;
-      left: 40px;
-      width: 70%;
-      max-width: 600px;
-    }
-
-    p {
-      font-weight: 400;
-      font-size: 28px;
-      letter-spacing: .2px;
-    }
-
-    .ice {
-      color: #DADADF;
-    }
-
-    .cold {
-      color: #B1DFE9;
-    }
-
-    .tow {
-      color: #F09662;
-    }
-
-    .gray {
-      color: #CCC;
-    }
-
-    .small {
-      font-size: 25px;
-      margin-top: 20px;
-    }
-
-  </style>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet' />
+<!-- <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.js'></script> -->
+<script src='L.Control.Locate.edits.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.css' rel='stylesheet' />
+<!--[if lt IE 9]>
+  <link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.ie.css' rel='stylesheet' />
+<![endif]-->
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+  .leaflet-control-locate { border: 1px solid rgba(0,0,0,0.4); }
+  .leaflet-control-locate a { background-color: #fff; background-position: -3px, -2px; }
+  .leaflet-control-locate.active a { background-position: -33px -2px; }
+</style>
 </head>
 <body>
 
-  <h1>
-    <span class="cold">willthey</span><span class="tow">tow</span><span class="cold">.me</span><span class="gray">?</span>
-  </h1>
+<div id='map'></div>
 
-  <div class="words">
-    <p class="cold">
-      Make sure you're not parked on a snow emergency route, so you don't get towed!
-    </p>
-    <p class="cold small">
-      Curated by <a href="http://meetup.com/Code-For-Boston" target="_blank">Code for Boston</a>.
-    </p>
-    <p class="cold small">
-      <a href="http://twitter.com/codeforboston" target="_blank">Follow us on the Twitter: @CodeForBoston</a>
-    </p>
-  </div>
+<script>
+    //initialize map using coUrbanize's snow route tiles, set view on Boston
+    var map = L.mapbox.map('map', 'courbanize.h2p5cm9m')
+    .setView([42.3150, -71.1025], 12); 
+
+    //add Mapbox's geolocation controls
+    L.control.locate({
+       setView: true, 
+       locateOptions: { maxZoom: 18 }  }).addTo(map);
+</script>
 
 </body>
 </html>
