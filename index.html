@@ -30,7 +30,11 @@
     .setView([42.3150, -71.1025], 12); 
 
     //add Mapbox's geolocation controls
-    L.control.locate().addTo(map);
+    //L.control.locate().addTo(map);
+
+    L.control.locate({
+       //setView: true, 
+       maxZoom: 16 }).addTo(map);
 </script>
 
 </body>
