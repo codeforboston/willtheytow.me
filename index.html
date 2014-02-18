@@ -7,23 +7,93 @@
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
 <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet' />
-<!-- <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.js'></script> -->
-<script src='L.Control.Locate.edits.js'></script>
+
+<!-- include the latest version of the Leaflet geolocation plugin to fix the zoom-too-far problem -->
+<script src='https://github.com/domoritz/leaflet-locatecontrol/raw/gh-pages/src/L.Control.Locate.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.css' rel='stylesheet' />
+
+<link href='http://fonts.googleapis.com/css?family=Cabin:400,600,700' rel='stylesheet' type='text/css'>
 <!--[if lt IE 9]>
   <link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.ie.css' rel='stylesheet' />
 <![endif]-->
 <style>
-  body { margin:0; padding:0; }
+  body { margin:0; padding:0; height:100%; font-family:Cabin;}
   #map { position:absolute; top:0; bottom:0; width:100%; }
   .leaflet-control-locate { border: 1px solid rgba(0,0,0,0.4); }
   .leaflet-control-locate a { background-color: #fff; background-position: -3px, -2px; }
   .leaflet-control-locate.active a { background-position: -33px -2px; }
+
+
+  #overlay {
+     visibility: visible;
+     position: absolute;
+     left: 0px;
+     top: 0px;
+     width:100%;
+     height:100%;
+     text-align:center;
+     z-index: 1000;
+     background-image:url(http://css-tricks.com/wp-content/csstricks-uploads/transpBlack75.png);
+}
+
+#overlay div {
+     /*width:300px;*/
+     margin: 100px auto;
+     color:#ffffff;
+     padding:15px;
+     font-size:1.1em;
+     text-align:center;
+}
+
+#overlay div p.small a {
+  color:#ec9e27;
+}
+
+p.small {
+  font-size: 0.75em;
+  margin-top:50px;
+}
+
+.locateme {
+   background: #617a88;
+    background: -webkit-gradient(linear, left top, left bottom, from(#7794a3), to(#617a88));
+   background: -webkit-linear-gradient(top, #7794a3, #617a88);
+   background: -moz-linear-gradient(top, #7794a3, #617a88);
+   background: -ms-linear-gradient(top, #7794a3, #617a88);
+   background: -o-linear-gradient(top, #7794a3, #617a88);
+   padding: 8px 26px;
+   -webkit-border-radius: 6px;
+   -moz-border-radius: 6px;
+   border-radius: 6px;
+   -webkit-box-shadow: rgba(0,0,0,.5) 0 5px 20px;
+   -moz-box-shadow: rgba(0,0,0,.5) 0 5px 20px;
+   box-shadow: rgba(0,0,0,.5) 0 5px 20px;
+   color: white;
+   text-decoration: none;
+   font-weight:bold;
+   vertical-align: middle;
+   font-size:1.25em;
+   margin-bottom:50px;
+}
+
+.locateme a {
+  color:#ffffff;
+}
 </style>
 </head>
 <body>
 
 <div id='map'></div>
+
+
+<div id="overlay">
+     <div>
+          <p>If it's snowing and I park here...</p>
+          <a href='#' id='locateme' class='locateme' >WILL THEY TOW ME?</a>
+          <p class='small'><strong>Will they tow me?</strong> aims to help citizens of Boston and Cambridge get their cars off of snow emergency routes and out of the way during bad winter weather.
+          <br><br>Built by <a href="http://www.meetup.com/Code-for-Boston">Code for Boston</a> using data from <a href="http://www.courbanize.org">coUrbanize</a>, the <a href="http://data.cityofboston.gov">City of Boston</a>, and the <a href="http://www.cambridgema.gov/gis.aspx">City of Cambridge</a>.
+     </div>
+</div>
 
 <script>
     //initialize map using coUrbanize's snow route tiles, set view on Boston
@@ -33,7 +103,54 @@
     //add Mapbox's geolocation controls
     L.control.locate({
        setView: true, 
-       locateOptions: { maxZoom: 18 }  }).addTo(map);
+       locateOptions: { maxZoom: 17 } }).addTo(map);
+
+
+var geolocate = document.getElementById('locateme');
+
+// This uses the HTML5 geolocation API, which is available on
+// most mobile browsers and modern browsers, but not in Internet Explorer
+//
+// See this chart of compatibility for details:
+// http://caniuse.com/#feat=geolocation
+if (!navigator.geolocation) {
+    geolocate.innerHTML = 'geolocation is not available';
+} else {
+    geolocate.onclick = function (e) {
+        e.preventDefault();
+        e.stopPropagation(); 
+        map.locate();
+    };
+}
+
+// Once we've got a position, zoom and center the map
+// on it, and add a single marker, and make the overlay go away.
+map.on('locationfound', function(e) {
+    map.fitBounds(e.bounds);
+    map.setZoom(17);
+
+    map.featureLayer.setGeoJSON({
+        type: "Feature",
+        geometry: {
+            type: "Point",
+            coordinates: [e.latlng.lng, e.latlng.lat]
+        },
+        properties: {
+            'marker-color': '#000',
+            'marker-symbol': 'star-stroked'
+        }
+    });
+
+    //make the overlay disappear
+    el = document.getElementById("overlay");
+    el.style.visibility =  "hidden";
+});
+
+// If the user chooses not to allow their location to be shared, display an error message.
+map.on('locationerror', function() {
+    geolocate.innerHTML = 'position could not be found';
+});
+    
 </script>
 
 </body>
