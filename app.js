@@ -8,7 +8,7 @@
        locateOptions: { maxZoom: 17 } }).addTo(map);
 
 
-var geolocate = document.getElementById('locateme');
+var geolocate = document.getElementsByTagName('button')[0];
 
 // This uses the HTML5 geolocation API, which is available on
 // most mobile browsers and modern browsers, but not in Internet Explorer

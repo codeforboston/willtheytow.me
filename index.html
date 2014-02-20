@@ -10,8 +10,8 @@
 <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet' />
 
-<!-- include the latest version of the Leaflet geolocation plugin to fix the zoom-too-far problem -thecristen -->
-<script src='https://github.com/domoritz/leaflet-locatecontrol/raw/gh-pages/src/L.Control.Locate.js'></script>
+<!-- Leaflet geolocation plugin -->
+<script src='js/L.Control.Locate.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.css' rel='stylesheet' />
 
 <!-- Google font for pretty -->
@@ -31,12 +31,16 @@
 <div id='map'></div>
 
 <!-- the overlay landing page that greets visitors -->
-<div id="overlay"><div>
+<div id="overlay">
+  <div>
   <p>If it's snowing and I park here...</p>
-  <a href='#' id='locateme' class='locateme' >WILL THEY TOW ME?</a>
+
+  <button id="locateme">WILL THEY <img class="tow" src="img/towtruck.png" alt="tow"> ME?</button>
+
   <p class='small'><strong>Will they tow me?</strong> aims to help citizens of Boston and Cambridge get their cars off of snow emergency routes and out of the way during bad winter weather.
-  <br><br>Built by <a href="http://www.meetup.com/Code-for-Boston">Code for Boston</a> using data from <a href="http://www.courbanize.org">coUrbanize</a>, the <a href="http://data.cityofboston.gov">City of Boston</a>, and the <a href="http://www.cambridgema.gov/gis.aspx">City of Cambridge</a>.
-</div></div>
+  <br><br>Built by <a href="http://www.meetup.com/Code-for-Boston">Code for Boston</a> using data from <a href="http://www.courbanize.com">coUrbanize</a>, the <a href="http://data.cityofboston.gov">City of Boston</a>, and the <a href="http://www.cambridgema.gov/gis.aspx">City of Cambridge</a>.
+  </div>
+</div>
 
 <!-- Custom JS (i.e. all mapping goodness) there -->
 <script src='app.js'></script>

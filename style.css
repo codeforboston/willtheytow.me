@@ -10,7 +10,7 @@ body { margin:0; padding:0; height:100%; font-family:Cabin;}
  height:100%;
  text-align:center;
  z-index: 1000;
- background-image:url(http://css-tricks.com/wp-content/csstricks-uploads/transpBlack75.png);
+ background-image:url(img/bl66.png);
 }
 
 #overlay  div {
@@ -31,7 +31,7 @@ p.small {
   margin-top:50px;
 }
 
-.locateme {
+#locateme {
  background: #617a88;
  background: -webkit-gradient(linear, left top, left bottom, from(#7794a3), to(#617a88));
  background: -webkit-linear-gradient(top, #7794a3, #617a88);
@@ -45,14 +45,21 @@ p.small {
  -webkit-box-shadow: rgba(0,0,0,.5) 0 5px 20px;
  -moz-box-shadow: rgba(0,0,0,.5) 0 5px 20px;
  box-shadow: rgba(0,0,0,.5) 0 5px 20px;
+ border:none;
  color: white;
  text-decoration: none;
  font-weight:bold;
- vertical-align: middle;
+ vertical-align: bottom;
  font-size:1.25em;
  margin-bottom:50px;
 }
 
-.locateme a {
-  color:#ffffff;
+#locateme:hover {
+	cursor:pointer;
+}
+
+.tow {
+
+    display:inline-block;
+    vertical-align:bottom;
 }
