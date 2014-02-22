@@ -6,36 +6,45 @@
 <title>Will They Tow Me?</title>
 
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+<!-- runs on Mapbox! -->
 <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet' />
-<!-- <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.js'></script> -->
-<script src='L.Control.Locate.edits.js'></script>
+
+<!-- Leaflet geolocation plugin -->
+<script src='js/L.Control.Locate.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.css' rel='stylesheet' />
+
+<!-- Google font for pretty -->
+<link href='http://fonts.googleapis.com/css?family=Cabin:400,600,700' rel='stylesheet' type='text/css'>
+
+<!-- Custom CSS there -->
+<link href='style.css' rel='stylesheet' />
+
 <!--[if lt IE 9]>
   <link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.ie.css' rel='stylesheet' />
 <![endif]-->
-<style>
-  body { margin:0; padding:0; }
-  #map { position:absolute; top:0; bottom:0; width:100%; }
-  .leaflet-control-locate { border: 1px solid rgba(0,0,0,0.4); }
-  .leaflet-control-locate a { background-color: #fff; background-position: -3px, -2px; }
-  .leaflet-control-locate.active a { background-position: -33px -2px; }
-</style>
+
 </head>
 <body>
 
+<!-- just a map container nothing to see here -->
 <div id='map'></div>
 
-<script>
-    //initialize map using coUrbanize's snow route tiles, set view on Boston
-    var map = L.mapbox.map('map', 'courbanize.h2p5cm9m')
-    .setView([42.3150, -71.1025], 12); 
+<!-- the overlay landing page that greets visitors -->
+<div id="overlay">
+  <div>
+  <p>If it's snowing and I park here...</p>
 
-    //add Mapbox's geolocation controls
-    L.control.locate({
-       setView: true, 
-       locateOptions: { maxZoom: 18 }  }).addTo(map);
-</script>
+  <button id="locateme">WILL THEY <img class="tow" src="img/towtruck.png" alt="tow"> ME?</button>
+
+  <p class='small'><strong>Will they tow me?</strong> aims to help citizens of Boston and Cambridge get their cars off of snow emergency routes and out of the way during bad winter weather.
+  <br><br>Built by <a href="http://www.meetup.com/Code-for-Boston">Code for Boston</a> using data from <a href="http://www.courbanize.com">coUrbanize</a>, the <a href="http://data.cityofboston.gov">City of Boston</a>, and the <a href="http://www.cambridgema.gov/gis.aspx">City of Cambridge</a>.
+  </div>
+</div>
+
+<!-- Custom JS (i.e. all mapping goodness) there -->
+<script src='app.js'></script>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
